@@ -1,0 +1,300 @@
+<!--
+  文件结构说明
+  1. head: 页面标题、描述、字体与样式文件引入
+  2. header.site-header: 顶部导航
+  3. main
+     - section.hero: 首屏，包含个人介绍、头像、核心信息卡片
+     - section#work: 项目经历
+     - section#about: 个人背景与专业画像
+     - section.quote-band: 中间强调语
+     - section: 技术栈与探索方向
+     - section: 兴趣与日常
+     - section#contact: 联系方式
+  4. script.js: 页面滚动显现动画
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Power Hardware Engineer | Personal Website</title>
+    <meta
+      name="description"
+      content="Ivy的个人网站，功率硬件✖️AI✖️cosplay✖️街舞。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <!-- 顶部导航：品牌名 + 页面锚点跳转 -->
+      <header class="site-header">
+        <a class="brand" href="#top">Welcome To My Channel</a>
+        <nav class="site-nav">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <!-- 首屏区域：左侧是身份文案，右侧是头像和关键信息 -->
+        <section class="hero section">
+          <div class="eyebrow reveal">Shenzhen / Suzhou / 2026</div>
+          <div class="hero-grid">
+            <!-- 首屏主文案 -->
+            <div class="hero-copy reveal">
+              <p class="hero-kicker">Power electronics engineer, AI-native builder, and independent developer.</p>
+              <h1>
+                我在做
+                <span>从真实需求出发的</span>
+                AI产品。
+              </h1>
+              <p class="hero-text">
+                目前就职于安克创新便携式储能业务部，负责功率硬件相关工作，But，欢迎来找我聊关于职业发展、AI、街舞和一切其他。
+              </p>
+            </div>
+
+            <!-- 首屏右侧：头像图 + 信息卡片 -->
+            <div class="hero-side reveal">
+              <div class="hero-portrait">
+                <img src="./identity.jpg" alt="Portrait" />
+              </div>
+
+              <!-- 用卡片压缩展示当前身份和核心方向 -->
+              <aside class="hero-card">
+                <div class="hero-card-top">
+                  <span class="pill">Anker Innovations / PPS</span>
+                  <span class="card-index">01</span>
+                </div>
+                <p>
+                  通信工程背景，现阶段聚焦便携式储能中的功率电子与热设计，同时持续探索 RAG、Agentic Workflows、MCP 以及 AI + Hardware 的实际落地路径。
+                </p>
+                <div class="hero-metrics">
+                  <div>
+                    <strong>2400W</strong>
+                    <span>Bidirectional inverter</span>
+                  </div>
+                  <div>
+                    <strong>02</strong>
+                    <span>Core tracks: Hardware / AI</span>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <!-- 项目经历：用三张卡片概括硬件、AI 系统和概念产品 -->
+        <section id="work" class="section">
+          <div class="section-head reveal">
+            <span class="eyebrow">Selected Work</span>
+            <h2>重点项目经历</h2>
+          </div>
+
+          <div class="work-grid">
+            <article class="work-card reveal">
+              <div class="work-visual work-visual-a"></div>
+              <div class="work-body">
+                <span class="card-index">Case 01</span>
+                <h3>2400W 双向逆变器</h3>
+                <p>负责风扇策略与热管理设计，通过软硬件协同和独立调速算法显著降低系统噪音，并优化整机散热效率。</p>
+                <ul class="tag-row">
+                  <li>Power Electronics</li>
+                  <li>Thermal</li>
+                  <li>Embedded</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="work-card reveal">
+              <div class="work-visual work-visual-b"></div>
+              <div class="work-body">
+                <span class="card-index">Case 02</span>
+                <h3>企业级自进化 AI 机器人</h3>
+                <p>基于 FastAPI 与 Claude 3.5 搭建闭环问答系统，利用 RAG 将群聊记录自动转化为结构化知识库。</p>
+                <ul class="tag-row">
+                  <li>FastAPI</li>
+                  <li>Claude 3.5</li>
+                  <li>RAG</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="work-card reveal">
+              <div class="work-visual work-visual-c"></div>
+              <div class="work-body">
+                <span class="card-index">Case 03</span>
+                <h3>ParentPal 概念产品</h3>
+                <p>面向职场父母的 AI 育儿辅助产品概念，通过大模型监控婴儿状态并提供持续性的情绪价值支持。</p>
+                <ul class="tag-row">
+                  <li>Concept</li>
+                  <li>AI Product</li>
+                  <li>Parenting</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 个人背景：左侧是连续介绍，右侧是能力模块 -->
+        <section id="about" class="section about">
+          <div class="section-head reveal">
+            <span class="eyebrow">Profile</span>
+            <h2>个人背景与专业画像</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-copy reveal">
+              <p>
+                我是一名功率硬件工程师，目前就职于安克创新，隶属于便携式储能业务部。毕业于东北林业大学通信工程专业，现常驻深圳，工作重心围绕功率电子、热管理设计、双向逆变器开发以及嵌入式软硬件协同展开。
+              </p>
+              <p>
+                除硬件研发外，我也持续投入 AI 架构与独立开发实践，熟悉 Node.js、Python 与 FastAPI，能使用Codex、Claude Code 等工具快速完成原型构建与闭环验证。
+              </p>
+            </div>
+
+            <div class="capability-list">
+              <div class="capability reveal">
+                <span>01</span>
+                <div>
+                  <h3>硬件研发主线</h3>
+                  <p>专注便携式储能场景中的功率电子、热路径优化、系统噪音控制与工程落地。</p>
+                </div>
+              </div>
+              <div class="capability reveal">
+                <span>02</span>
+                <div>
+                  <h3>AI 架构兴趣</h3>
+                  <p>深入研究 RAG、Agentic Workflows 与 MCP，关注多组件协作下的系统可扩展性。</p>
+                </div>
+              </div>
+              <div class="capability reveal">
+                <span>03</span>
+                <div>
+                  <h3>开发工具链</h3>
+                  <p>熟练使用 Cursor、Codex、Claude Code，并具备 Node.js、Python、FastAPI 实战经验。</p>
+                </div>
+              </div>
+              <div class="capability reveal">
+                <span>04</span>
+                <div>
+                  <h3>未来愿景</h3>
+                  <p>长期关注 AI + Hardware 的融合方向，尤其对具身智能与世界模型保持持续投入。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 强调语：给页面一个中间停顿和品牌感 -->
+        <section class="section quote-band reveal">
+          <p>
+            “From power systems to intelligent systems.”
+          </p>
+        </section>
+
+        <!-- 技术栈：更清楚地拆开 AI 应用、开发能力和系统视角 -->
+        <section class="section">
+          <div class="section-head reveal">
+            <span class="eyebrow">Stack</span>
+            <h2>技术栈与探索方向</h2>
+          </div>
+
+          <div class="capability-list">
+            <div class="capability reveal">
+              <span>01</span>
+              <div>
+                <h3>大模型应用</h3>
+                <p>能够独立完成 Gemini API 在 macOS 与代理环境下的本地集成，并实现基于 Claude 3.5 的闭环 QA 系统。</p>
+              </div>
+            </div>
+            <div class="capability reveal">
+              <span>02</span>
+              <div>
+                <h3>后端与原型开发</h3>
+                <p>熟悉 Python、FastAPI 与 Node.js，适合快速搭建知识库、Agent 工作流和实验性产品原型。</p>
+              </div>
+            </div>
+            <div class="capability reveal">
+              <span>03</span>
+              <div>
+                <h3>系统视角</h3>
+                <p>习惯从约束、效率、协同和可扩展性出发理解问题，这也是硬件研发经验带给 AI 实践的优势。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 兴趣部分：让网站不只有职业信息，也能看见个人气质 -->
+        <section class="section">
+          <div class="section-head reveal">
+            <span class="eyebrow">Life</span>
+            <h2>兴趣与日常</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-copy reveal">
+              <p>
+                工作之外，我长期保持舞蹈训练，尤其喜欢 K-pop 和 Urban 风格。对我来说，舞蹈和工程其实很像，都是节奏、控制和反馈的练习。
+              </p>
+              <p>
+                我习惯通过镜像处理、变速和 8 拍分段以及先从重复的段落记忆再串联零散的主歌这些方法进行视频自学，这种拆解动作与反复校准的过程，也和我处理技术问题的方式非常接近。
+              </p>
+            </div>
+            <div class="capability-list">
+              <div class="capability reveal">
+                <span>01</span>
+                <div>
+                  <h3>K-pop / Urban</h3>
+                  <p>偏好节奏感明确、控制力强、动作质感清晰的编舞风格。</p>
+                </div>
+              </div>
+              <div class="capability reveal">
+                <span>02</span>
+                <div>
+                  <h3>视频自学法</h3>
+                  <p>用镜像、变速、8 拍分段等方式提高动作学习效率，形成稳定训练闭环。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 联系方式：保留邮箱、社交预留位和所在地 -->
+        <section id="contact" class="section contact">
+          <div class="section-head reveal">
+            <span class="eyebrow">Contact</span>
+            <h2>欢迎围绕储能硬件、AI 产品或跨界想法和我交流。</h2>
+          </div>
+
+          <div class="contact-panel reveal">
+            <div>
+              <p class="contact-label">Email</p>
+              <a href="mailto:2841582124@qq.com">2841582124@qq.com</a>
+            </div>
+            <div>
+              <p class="contact-label">GitHub</p>
+              <span>Coming soon</span>
+            </div>
+            <div>
+              <p class="contact-label">小红书</p>
+              <span>Coming soon</span>
+            </div>
+            <div>
+              <p class="contact-label">Location</p>
+              <span>Shenzhen</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

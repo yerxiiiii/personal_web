@@ -1,0 +1,538 @@
+/*
+  文件结构说明
+  1. :root: 全站设计变量，统一颜色、圆角、阴影
+  2. 基础重置: body、a、img、ul 等默认样式
+  3. 全局布局: site-shell、site-header、section
+  4. 首屏: hero、hero-grid、hero-copy、hero-side、hero-portrait、hero-card
+  5. 通用模块: section-head、pill、card-index
+  6. 项目区: work-grid、work-card、work-visual、work-body、tag-row
+  7. 关于区: about-grid、about-copy、capability-list、capability
+  8. 强调语与联系区: quote-band、contact-panel
+  9. 动效与响应式: reveal、media query
+*/
+:root {
+  /* 设计变量：后续改风格时，优先改这里 */
+  --bg: #f6f3ec;
+  --bg-strong: #efebe2;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: #ffffff;
+  --text: #111111;
+  --muted: #656565;
+  --line: rgba(17, 17, 17, 0.1);
+  --accent: #1b4734;
+  --accent-soft: rgba(27, 71, 52, 0.08);
+  --shadow: 0 24px 70px rgba(17, 17, 17, 0.08);
+  --radius: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* 让导航锚点滚动更顺滑 */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* 页面主背景：不是纯色，而是带少量渐变和光感 */
+  margin: 0;
+  min-width: 320px;
+  font-family: "Manrope", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(27, 71, 52, 0.1), transparent 28%),
+    radial-gradient(circle at right 15%, rgba(17, 17, 17, 0.04), transparent 22%),
+    linear-gradient(180deg, #fbfaf7 0%, var(--bg) 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-shell {
+  /* 控制整站最大宽度并居中 */
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+.site-header {
+  /* 顶部导航固定在页面上方，方便快速跳转 */
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 18px;
+  backdrop-filter: blur(18px);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.brand,
+.site-nav,
+.eyebrow,
+.card-index,
+.pill,
+.contact-label {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.brand {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  gap: 22px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.site-nav a {
+  color: var(--muted);
+  transition: color 220ms ease;
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+}
+
+.section {
+  /* 每个内容区块的统一上下留白 */
+  padding: 48px 0 24px;
+}
+
+.hero {
+  /* 首屏额外给上边距，让视觉更舒展 */
+  padding-top: 12px;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero-grid {
+  /* 首屏主布局：左文案，右头像+卡片 */
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.7fr);
+  gap: 28px;
+  margin-top: 18px;
+  align-items: end;
+}
+
+.hero-side {
+  /* 右侧头像和信息卡片上下排列 */
+  display: grid;
+  gap: 18px;
+}
+
+.hero-copy h1 {
+  /* 主标题做成超大写法，形成强烈视觉记忆点 */
+  margin: 20px 0 24px;
+  font-size: clamp(4rem, 10vw, 8.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.hero-copy span {
+  color: var(--accent);
+}
+
+.hero-kicker,
+.hero-text,
+.about-copy p,
+.work-body p,
+.capability p,
+.contact-panel span,
+.contact-panel a {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.hero-text {
+  max-width: 580px;
+}
+
+.hero-card,
+.work-card,
+.contact-panel,
+.quote-band {
+  /* 这些模块共用同一套“磨砂卡片”语言 */
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.hero-portrait {
+  /* 头像容器：控制圆角、裁切和背景氛围 */
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  border: 5px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at top right, rgba(118, 92, 215, 0.16), transparent 24%),
+    linear-gradient(180deg, #f3efe7 0%, #ebe5db 100%);
+  box-shadow: var(--shadow);
+}
+
+.hero-portrait::after {
+  /* 底部轻微压暗，让图片更有层次 */
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(17, 17, 17, 0.12));
+  pointer-events: none;
+}
+
+.hero-portrait img {
+  /* 头像填满容器，并略微增强质感 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(0.95) contrast(1.02);
+  transform: scale(1.02);
+}
+
+.hero-card {
+  /* 首屏信息卡片 */
+  padding: 24px;
+  border-radius: var(--radius);
+}
+
+.hero-card-top,
+.section-head,
+.contact-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pill {
+  /* 小标签：常用于展示状态、公司、分类 */
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.card-index {
+  color: rgba(17, 17, 17, 0.35);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-card p {
+  margin: 18px 0 28px;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.hero-metrics {
+  /* 数字指标区域 */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.hero-metrics strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.hero-metrics span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.section-head {
+  /* 每个区块的标题头 */
+  align-items: end;
+  margin-bottom: 26px;
+}
+
+.section-head h2 {
+  margin: 10px 0 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.work-grid {
+  /* 项目卡片三列布局 */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.work-card {
+  /* 项目卡片的交互：悬停时轻微上浮 */
+  overflow: hidden;
+  border-radius: 26px;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    background-color 260ms ease;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(27, 71, 52, 0.28);
+  background: var(--surface-strong);
+}
+
+.work-visual {
+  /* 项目卡片顶部封面区域 */
+  aspect-ratio: 1 / 1.08;
+  border-bottom: 1px solid var(--line);
+}
+
+.work-visual-a {
+  background:
+    radial-gradient(circle at 28% 20%, rgba(255, 255, 255, 0.4), transparent 22%),
+    linear-gradient(135deg, #183c2d, #8eb39a 60%, #eef4ed);
+}
+
+.work-visual-b {
+  background:
+    radial-gradient(circle at 72% 24%, rgba(255, 255, 255, 0.5), transparent 18%),
+    linear-gradient(135deg, #111111, #6f746f 58%, #ece7dd);
+}
+
+.work-visual-c {
+  background:
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.45), transparent 16%),
+    linear-gradient(135deg, #d9d1c5, #f7f4ef 40%, #234a38);
+}
+
+.work-body {
+  /* 项目卡片文案部分 */
+  padding: 22px;
+}
+
+.work-body h3,
+.capability h3 {
+  margin: 12px 0 10px;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.tag-row {
+  /* 项目标签行 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tag-row li {
+  padding: 7px 10px;
+  background: #f1f1ee;
+  color: #6d6d69;
+  border-radius: 999px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-grid {
+  /* 关于区：左文案，右能力块 */
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.about-copy {
+  padding-right: 24px;
+}
+
+.capability-list {
+  /* 多个能力模块的纵向堆叠 */
+  display: grid;
+  gap: 16px;
+}
+
+.capability {
+  /* 单个能力说明卡片 */
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 18px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.capability > span {
+  color: var(--accent);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.88rem;
+}
+
+.quote-band {
+  /* 中间强调语：通过深色底和大字制造停顿感 */
+  margin-top: 28px;
+  padding: 42px 24px;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(27, 71, 52, 0.96), rgba(17, 17, 17, 0.92)),
+    var(--surface);
+}
+
+.quote-band p {
+  margin: 0;
+  color: #fbfaf7;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.contact-panel {
+  /* 联系方式区：桌面端横向排列 */
+  margin-top: 22px;
+  padding: 26px;
+  border-radius: 28px;
+  align-items: start;
+}
+
+.contact-panel > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-panel a,
+.contact-panel span {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 1.1rem;
+}
+
+.contact-label {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.reveal {
+  /* 初始状态：先隐藏，等待 JS 滚动触发 */
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+.reveal.is-visible {
+  /* 当元素进入视口后显示 */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 960px) {
+  /* 平板与小屏：把多列布局改成单列 */
+  .hero-grid,
+  .work-grid,
+  .about-grid,
+  .contact-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .work-grid {
+    gap: 18px;
+  }
+
+  .about-copy {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  /* 手机端进一步压缩边距和标题尺寸 */
+  .site-shell {
+    width: min(100% - 20px, 1200px);
+  }
+
+  .site-header {
+    padding-top: 18px;
+  }
+
+  .site-nav {
+    gap: 14px;
+    font-size: 0.74rem;
+  }
+
+  .section {
+    padding: 34px 0 18px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .hero-card,
+  .hero-portrait,
+  .work-body,
+  .contact-panel,
+  .capability,
+  .quote-band {
+    border-radius: 22px;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+}
